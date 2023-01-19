@@ -1,12 +1,12 @@
 '''
 Course:  Human-Robot Interaction
 Authors: Filip Novicky, Joshua Offergeld, Simon Janssen, Ariyan Tufchi
-Date:    13-01-2023
+Date:    19-01-2023
 
 This script is used to execute active sensing in the robot. Two threads are created:
 
-- Touches are simulated in the Sense class. 
-- Actions are simulated in the Act class. 
+- Touches are observed in the Sense class. 
+- Actions are executed in the Act class. 
 
 The Touch class is needed to share variables between the two threads.
 '''
@@ -95,7 +95,7 @@ class Act(Thread):
 
         lock = self.touchData.getLock()
         
-        for _ in range(60):  
+        for _ in range(40):  
             lock.acquire()
             # Read whether robot has been touched
             touchVal = self.touchData.readAndReset(1.0)
@@ -112,6 +112,7 @@ class Act(Thread):
             # Move to the next state
             self.motionProxy.angleInterpolation(self.names, jointPositions, [1, 1, 1], True)
             lock.release()
+            
             # Move up and down again to sense in the state
             jointPositions[0] += 0.1
             self.motionProxy.angleInterpolation(self.names, jointPositions, [0.8, 0.8, 0.8], True)
