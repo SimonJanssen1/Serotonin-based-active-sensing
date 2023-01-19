@@ -44,7 +44,7 @@ def main():
 
     """
     touchData = Touch()                # Create shared class to update touch variable
-    timesteps = 80                     # Decide how long to run the experiment
+    timesteps = 40                     # Decide how long to run the experiment
     
     actThread = Act(touchData, timesteps)         # Create thread for acting in environment
     senseThread = Sense(touchData)                # Create thread for sensing in environment
@@ -59,9 +59,9 @@ def main():
 
 
     # Decide how to simulate touches: a list of timesteps, a specific state, or random
-    senseThread.setSimulationMode('list', touched=experimentTouchData[4])
+#     senseThread.setSimulationMode('list', touched=experimentTouchData[4])
 
-    # senseThread.setSimulationMode('state', 3)
+    senseThread.setSimulationMode('state', 3)
 
     # senseThread.setSimulationMode('random')
 
