@@ -1,7 +1,7 @@
 '''
 Course:  Human-Robot Interaction
 Authors: Filip Novicky, Joshua Offergeld, Simon Janssen, Ariyan Tufchi
-Date:    13-01-2023
+Date:    19-01-2023
 
 This script is used to test the connection between the python2 and python3 script. Two threads are created:
 
@@ -124,6 +124,7 @@ class Act(Thread):
             # Set the shared class state to the new state
             self.touchData.setState(int(data))
             lock.release()
+            
             # Simulate time for robot to move to the new position
             #time.sleep(1)
             # Print information about simulated joint positions and action
@@ -179,9 +180,9 @@ class Sense(Thread):
             lock.acquire()
             if self.mode == 'random':                                 # If random touching is initialised, simulate touch randomly
                 self.simulateRandomTouch(0.02)
-            elif self.mode == 'state':                                           # Else, simulate touch in a specific state
+            elif self.mode == 'state':                                # Else, simulate touch for a specific arm position
                 self.simulateStateTouch()
-            else:
+            else:                                                     # Else, simulate touch at specific timesteps
                 self.simulateTouchList()
             lock.release()
             time.sleep(0.1)
@@ -192,6 +193,7 @@ class Sense(Thread):
 
     def simulateRandomTouch(self, prob):
         touchVal = random.random()
+        # Touch value is updated with probability prob
         if touchVal < prob:
             self.touchData.readAndReset(0.0)
 
@@ -199,17 +201,21 @@ class Sense(Thread):
         state = self.touchData.getState()
         if (state == self.state or state == (8-self.state)):
             self.i += 1
+            # Only start touching at the arm position after time-step 8
             if self.i > 2:
                 self.touchData.readAndReset(0.0)
 
     def simulateTouchList(self):
+        # If touches at all time-steps are already simulated, return
         if self.i == len(self.touched):
             return
         state = self.touchData.getState()
         if state != self.s:
+            # If the time-step occurs in the list, simulate a touch
             if self.timestep == self.touched[self.i]:
                 self.i += 1
                 self.touchData.readAndReset(0.0)
+            # Update the time-step
             self.timestep += 1
             self.s = state
         
