@@ -1,7 +1,7 @@
 '''
 Course:  Human-Robot Interaction
 Authors: Filip Novicky, Joshua Offergeld, Simon Janssen, Ariyan Tufchi
-Date:    13-01-2023
+Date:    19-01-2023
 
 This script is used to initialise the matrices needed for the active inference model. 
 '''
