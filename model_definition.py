@@ -4,12 +4,6 @@ Authors: Filip Novicky, Joshua Offergeld, Simon Janssen, Ariyan Tufchi
 Date:    13-01-2023
 
 This script is used to initialise the matrices needed for the active inference model. 
-
-Specifically, this script initialises the following matrices:
-    - A matrix:
-    - B matrix: 
-    - D matrix:
-    - E matrix:
 '''
 
 import numpy as np
