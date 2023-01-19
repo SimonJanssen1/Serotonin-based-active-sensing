@@ -1,7 +1,7 @@
 '''
 Course:  Human-Robot Interaction
 Authors: Filip Novicky, Joshua Offergeld, Simon Janssen, Ariyan Tufchi
-Date:    13-01-2023
+Date:    19-01-2023
 
 This script implements the active inference model described in the report. 
 The script receives information about observations from a python2 script connected to the robot.
