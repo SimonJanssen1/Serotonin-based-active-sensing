@@ -69,7 +69,7 @@ def createSubplot(ax, data, name, timesteps, colors=None, labels=None):
         ax.set_ylim([-0.1,1.1])
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.25))
     # The hand position state should have points plotted individually
-    elif name == 'Hand position state':
+    elif name == 'Arm position':
         ax.plot(data, c='blue', marker='o', markersize=4)
         ax.set_ylim([0,6])
     else:
@@ -100,7 +100,7 @@ def plot_data(fig, axs, obs, q_pi, cont, action, timesteps):
     createSubplot(axs[0,0], obs, "Observation", timesteps)
     createSubplot(axs[1,1], cont, "Context posterior", timesteps, contextColors, contextLabels)
     createSubplot(axs[1,0], q_pi, "Policy posterior", timesteps, policyColors, policyLabels)
-    createSubplot(axs[0,1], action, "Hand position state", timesteps)
+    createSubplot(axs[0,1], action, "Arm position", timesteps)
 
     # Make sure that the layout is tight
     fig.tight_layout()
@@ -117,12 +117,12 @@ if __name__ == '__main__':
     E = get_e()
 
     ## Initialize precision terms
-    zeta = 0.5
+    zeta = 0.25
     omega = 0.8
     rho = 0.5
 
     ## Initialise number of timesteps
-    timesteps = 80
+    timesteps = 40
 
     for i in range(1, 4):
         A[0][:, i, :] = scipy.special.softmax(zeta * np.log(A[0][:, i, :] + np.exp(-8)), axis=0)
