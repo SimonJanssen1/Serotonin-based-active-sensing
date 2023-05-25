@@ -80,6 +80,7 @@ def createSubplot(ax, data, name, timesteps, colors=None, labels=None):
     ax.set_title(name)
     ax.set_xlabel("Timestep")
     ax.set_ylabel(name)
+    ax.axvline(x=30, color='red')
     ax.set_xlim([0,timesteps])
 
 
@@ -117,12 +118,12 @@ if __name__ == '__main__':
     E = get_e()
 
     ## Initialize precision terms
-    zeta = 0.25
+    zeta = 0.5
     omega = 0.8
     rho = 0.5
 
     ## Initialise number of timesteps
-    timesteps = 40
+    timesteps = 80
 
     for i in range(1, 4):
         A[0][:, i, :] = scipy.special.softmax(zeta * np.log(A[0][:, i, :] + np.exp(-8)), axis=0)
@@ -179,6 +180,6 @@ if __name__ == '__main__':
                 plt.pause(0.1)  # interactive
 
             # Save the final plot
-            plt.savefig("Data plot experimental run")
+            plt.savefig("Data plot experimental run", format='pdf')
             conn.close()
     
